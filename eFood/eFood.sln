@@ -9,6 +9,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{DD
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eFood.Catalog.WebApi", "src\Services\eFood.Catalog.WebApi\eFood.Catalog.WebApi.csproj", "{6B4888B2-3453-4C46-BC99-4180813E2389}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{C84A2438-D489-4828-A7B4-F41D6010E58F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eFood.Common", "src\Common\eFood.Common\eFood.Common.csproj", "{86E8C663-0ADD-44C6-8F2A-C330C154E4AD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +23,10 @@ Global
 		{6B4888B2-3453-4C46-BC99-4180813E2389}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6B4888B2-3453-4C46-BC99-4180813E2389}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6B4888B2-3453-4C46-BC99-4180813E2389}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86E8C663-0ADD-44C6-8F2A-C330C154E4AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86E8C663-0ADD-44C6-8F2A-C330C154E4AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86E8C663-0ADD-44C6-8F2A-C330C154E4AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86E8C663-0ADD-44C6-8F2A-C330C154E4AD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -26,6 +34,8 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{DD6E65A0-E7F6-4399-87C8-76ED5A0B156F} = {058E8BFE-C5AD-4F50-BD09-EFACFEE801AB}
 		{6B4888B2-3453-4C46-BC99-4180813E2389} = {DD6E65A0-E7F6-4399-87C8-76ED5A0B156F}
+		{C84A2438-D489-4828-A7B4-F41D6010E58F} = {058E8BFE-C5AD-4F50-BD09-EFACFEE801AB}
+		{86E8C663-0ADD-44C6-8F2A-C330C154E4AD} = {C84A2438-D489-4828-A7B4-F41D6010E58F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DA7F31F8-CC2E-4CCF-B184-E51B29BA8B36}

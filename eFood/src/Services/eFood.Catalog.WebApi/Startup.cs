@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using eFood.Common.Swagger;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -25,11 +27,19 @@ namespace eFood.Catalog.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            services.AddSwagger((IConfigurationRoot)Configuration, c =>
+            {
+                var filePath = Path.Combine(System.AppContext.BaseDirectory, "eFood.Catalog.WebApi.xml");
+                c.IncludeXmlComments(filePath);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.ConfigureSwagger(Configuration);
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
