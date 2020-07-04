@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using eFood.Catalog.WebApi.DAL;
 using eFood.Common.Serilog;
 using eFood.Common.Swagger;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -27,6 +29,8 @@ namespace eFood.Catalog.WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContextPool<CatalogDbContext>(opt =>
+                opt.UseSqlServer(Configuration.GetConnectionString("DbContext")));
             services.AddControllers();
 
             services.AddSwagger((IConfigurationRoot)Configuration, c =>
