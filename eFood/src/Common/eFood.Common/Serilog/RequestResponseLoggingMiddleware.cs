@@ -63,16 +63,13 @@ namespace eFood.Common.Serilog
             var query = request.Query.ToDictionary(pair => pair.Key, pair => pair.Value);
             var headers = request.Headers.ToDictionary(pair => pair.Key, pair => pair.Value);
             var cookies = request.Cookies.ToDictionary(pair => pair.Key, pair => pair.Value);
-            string bodyAsText;
+            string bodyAsText = String.Empty;
 
-            using (var reader = new StreamReader(request.Body, Encoding.UTF8, false, 8192, true))
+            request.EnableBuffering();
+            using (StreamReader reader = new StreamReader(request.Body, Encoding.UTF8, true, 1024, true))
             {
-                var body = request.Body;
-                request.EnableBuffering();
-                var buffer = new byte[Convert.ToInt32(request.ContentLength)];
-                await request.Body.ReadAsync(buffer, 0, buffer.Length);
-                bodyAsText = Encoding.UTF8.GetString(buffer);
-                request.Body = body;
+                bodyAsText = await reader.ReadToEndAsync();
+                request.Body.Position = 0;
             }
 
 
@@ -100,12 +97,7 @@ namespace eFood.Common.Serilog
             //...and copy it into a string
             string text = await new StreamReader(response.Body).ReadToEndAsync();
 
-            //We need to reset the reader for the response so that the client can read it.
-            response.Body.Seek(0, SeekOrigin.Begin);
-
-            //Return the string for the response, including the status code (e.g. 200, 404, 401, etc.)
-            // return $"{response.StatusCode}: {text}";
-
+            
             var headers = response.Headers.ToDictionary(pair => pair.Key, pair => pair.Value);
 
             string str = "HttpResponse: {@HttpStatusCode}, {@Duration} {@ResponseHeaders}, {@ResponseBody}";
@@ -117,6 +109,9 @@ namespace eFood.Common.Serilog
                 headers,
                 text
             };
+
+            //We need to reset the reader for the response so that the client can read it.
+            response.Body.Seek(0, SeekOrigin.Begin);
 
             return (str, details);
         }
