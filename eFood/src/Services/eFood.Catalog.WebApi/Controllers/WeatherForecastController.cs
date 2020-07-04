@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -24,9 +25,13 @@ namespace eFood.Catalog.WebApi.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<WeatherForecast> Get()
+        public IEnumerable<WeatherForecast> Get(int id)
         {
             var rng = new Random();
+
+            
+            Thread.Sleep(1000);
+
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
                 Date = DateTime.Now.AddDays(index),
@@ -35,5 +40,17 @@ namespace eFood.Catalog.WebApi.Controllers
             })
             .ToArray();
         }
+
+        [HttpPost]
+        public WeatherDto Post(WeatherDto weather)
+        {
+            return weather;
+        }
+    }
+
+    public class WeatherDto
+    {
+        public string City { get; set; }
+        public string Country { get; set; }
     }
 }
