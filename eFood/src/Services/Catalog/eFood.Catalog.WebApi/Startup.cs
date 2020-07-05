@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using eFood.Catalog.WebApi.DAL;
+using eFood.Common.MassTransit;
 using eFood.Common.Serilog;
 using eFood.Common.Swagger;
 using Microsoft.AspNetCore.Builder;
@@ -38,6 +39,8 @@ namespace eFood.Catalog.WebApi
                 var filePath = Path.Combine(System.AppContext.BaseDirectory, "eFood.Catalog.WebApi.xml");
                 c.IncludeXmlComments(filePath);
             });
+
+            services.AddMassTransit(Configuration, null, null);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

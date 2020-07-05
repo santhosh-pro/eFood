@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using eFood.Catalog.WebApi.DAL;
 using eFood.Catalog.WebApi.DAL.Models;
+using eFood.Common.MassTransit;
+using eFood.Common.MassTransit.Messages;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -16,11 +18,13 @@ namespace eFood.Catalog.WebApi.Controllers
     {
         private readonly ILogger<VendorsController> _logger;
         private readonly CatalogDbContext _context;
+        private readonly IBusPublisher _publisher;
 
-        public VendorsController(ILogger<VendorsController> logger, CatalogDbContext context)
+        public VendorsController(ILogger<VendorsController> logger, CatalogDbContext context, IBusPublisher publisher)
         {
             _logger = logger;
             _context = context;
+            _publisher = publisher;
         }
 
         [HttpGet]
@@ -58,6 +62,14 @@ namespace eFood.Catalog.WebApi.Controllers
             };
             _context.Add(newVendor);
             await _context.SaveChangesAsync();
+
+            await _publisher.Publish<IVendorCreateEvent>(new
+            {
+                CorrelationId = Guid.NewGuid(),
+                VendorId = newVendor.Id, 
+                Name = newVendor.Name
+            });
+
             return RedirectToAction("GetById", new { id = newVendor.Id });
         }
     }
