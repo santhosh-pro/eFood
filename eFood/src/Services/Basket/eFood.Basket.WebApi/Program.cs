@@ -1,13 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
+using eFood.Basket.WebApi.DAL;
+using eFood.Common.Migrator;
 using eFood.Common.Serilog;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
 namespace eFood.Basket.WebApi
 {
@@ -15,7 +11,11 @@ namespace eFood.Basket.WebApi
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            CreateHostBuilder(args).Build()
+                .MigrateToLatestVersion<BasketDbContext>((context, provider) =>
+                {
+                    //  seed data method here
+                }).Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>

@@ -4,7 +4,7 @@ using MassTransit;
 
 namespace eFood.Common.MassTransit
 {
-    class MassTransitPublisher : IBusPublisher
+    public class MassTransitPublisher : IBusPublisher
     {
         //  should use IBus instead of
         //  private readonly IPublishEndpoint _bus;

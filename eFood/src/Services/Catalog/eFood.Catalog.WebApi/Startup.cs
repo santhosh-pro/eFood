@@ -41,6 +41,7 @@ namespace eFood.Catalog.WebApi
             });
 
             services.AddMassTransit(Configuration, null, null);
+            services.AddSingleton<IBusPublisher, MassTransitPublisher>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

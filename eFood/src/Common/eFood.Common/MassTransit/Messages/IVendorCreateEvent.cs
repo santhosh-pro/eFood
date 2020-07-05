@@ -5,7 +5,7 @@ namespace eFood.Common.MassTransit.Messages
 {
     public interface IVendorCreateEvent : CorrelatedBy<Guid>
     {
-        public Guid VendorId { get; set; }
-        public string Name { get; set; }
+        public Guid VendorId { get; }
+        public string Name { get; }
     }
 }

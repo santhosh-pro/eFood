@@ -63,14 +63,23 @@ namespace eFood.Catalog.WebApi.Controllers
             _context.Add(newVendor);
             await _context.SaveChangesAsync();
 
-            await _publisher.Publish<IVendorCreateEvent>(new
-            {
-                CorrelationId = Guid.NewGuid(),
-                VendorId = newVendor.Id, 
-                Name = newVendor.Name
-            });
+            await _publisher.Publish(new VendorCreateEvent(Guid.NewGuid(), newVendor.Id, newVendor.Name));
 
             return RedirectToAction("GetById", new { id = newVendor.Id });
+        }
+    }
+
+    public class VendorCreateEvent : IVendorCreateEvent
+    {
+        public Guid CorrelationId { get; }
+        public Guid VendorId { get; }
+        public string Name { get; }
+
+        public VendorCreateEvent(Guid? correlationId, Guid vendorId, string name)
+        {
+            CorrelationId = correlationId ?? Guid.NewGuid();
+            VendorId = vendorId;
+            Name = name;
         }
     }
 
