@@ -1,19 +1,15 @@
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 using eFood.Catalog.WebApi.DAL;
+using eFood.Common.MassTransit;
+using eFood.Common.Outbox.ServiceCollections;
 using eFood.Common.Serilog;
 using eFood.Common.Swagger;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
 namespace eFood.Catalog.WebApi
 {
@@ -38,6 +34,9 @@ namespace eFood.Catalog.WebApi
                 var filePath = Path.Combine(System.AppContext.BaseDirectory, "eFood.Catalog.WebApi.xml");
                 c.IncludeXmlComments(filePath);
             });
+
+            services.AddMassTransit(Configuration, null, null);
+            services.AddOutbox(Configuration, x => x.AddInMemory());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

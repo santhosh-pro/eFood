@@ -10,6 +10,6 @@ services:
         MSSQL_PID: "Developer"
   efood.catalog.webapi:
     environment:
-      - ASPNETCORE_ENVIRONMENT=local
+      - ASPNETCORE_ENVIRONMENT=docker
     ports:
       - "5001:80"
