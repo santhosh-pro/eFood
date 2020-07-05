@@ -17,7 +17,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Catalog", "Catalog", "{C9E9
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eFood.Catalog.WebApi", "src\Services\Catalog\eFood.Catalog.WebApi\eFood.Catalog.WebApi.csproj", "{295FE77B-4023-4B89-B56B-5ABB8D09F502}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eFood.Basket.WebApi", "src\Services\Basket\eFood.Basket.WebApi\eFood.Basket.WebApi.csproj", "{D2130DBB-FEB0-4497-986E-381F7A250F85}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eFood.Basket.WebApi", "src\Services\Basket\eFood.Basket.WebApi\eFood.Basket.WebApi.csproj", "{D2130DBB-FEB0-4497-986E-381F7A250F85}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{D6CA7F1C-7868-42C3-B5FD-E393E5358E68}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,6 +39,10 @@ Global
 		{D2130DBB-FEB0-4497-986E-381F7A250F85}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D2130DBB-FEB0-4497-986E-381F7A250F85}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D2130DBB-FEB0-4497-986E-381F7A250F85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6CA7F1C-7868-42C3-B5FD-E393E5358E68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6CA7F1C-7868-42C3-B5FD-E393E5358E68}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6CA7F1C-7868-42C3-B5FD-E393E5358E68}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6CA7F1C-7868-42C3-B5FD-E393E5358E68}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
