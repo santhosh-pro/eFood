@@ -17,5 +17,9 @@
     <ProjectReference Include="..\..\..\Common\eFood.Common\eFood.Common.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Application\Queries\" />
+  </ItemGroup>
+
 
 </Project>

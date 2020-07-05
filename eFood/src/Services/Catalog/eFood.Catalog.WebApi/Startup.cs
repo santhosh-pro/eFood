@@ -7,6 +7,7 @@ using eFood.Catalog.WebApi.DAL;
 using eFood.Common.MassTransit;
 using eFood.Common.Serilog;
 using eFood.Common.Swagger;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -39,7 +40,7 @@ namespace eFood.Catalog.WebApi
                 var filePath = Path.Combine(System.AppContext.BaseDirectory, "eFood.Catalog.WebApi.xml");
                 c.IncludeXmlComments(filePath);
             });
-
+            services.AddMediatR(typeof(Startup));
             services.AddMassTransit(Configuration, null, null);
             services.AddSingleton<IBusPublisher, MassTransitPublisher>();
         }

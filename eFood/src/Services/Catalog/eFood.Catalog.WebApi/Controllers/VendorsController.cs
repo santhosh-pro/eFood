@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using eFood.Catalog.WebApi.Application.Commands;
 using eFood.Catalog.WebApi.DAL;
 using eFood.Catalog.WebApi.DAL.Models;
 using eFood.Common.MassTransit;
 using eFood.Common.MassTransit.Messages;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -18,13 +20,14 @@ namespace eFood.Catalog.WebApi.Controllers
     {
         private readonly ILogger<VendorsController> _logger;
         private readonly CatalogDbContext _context;
+        private readonly IMediator _mediator;
         private readonly IBusPublisher _publisher;
 
-        public VendorsController(ILogger<VendorsController> logger, CatalogDbContext context, IBusPublisher publisher)
+        public VendorsController(ILogger<VendorsController> logger, CatalogDbContext context, IMediator mediator)
         {
             _logger = logger;
             _context = context;
-            _publisher = publisher;
+            _mediator = mediator;
         }
 
         [HttpGet]
@@ -56,16 +59,9 @@ namespace eFood.Catalog.WebApi.Controllers
         [HttpPost]
         public async Task<ActionResult<VendorDto>> CreateVendor([FromBody]CreateVendorDto vendor)
         {
-            var newVendor = new Vendor
-            {
-                Name = vendor.Name
-            };
-            _context.Add(newVendor);
-            await _context.SaveChangesAsync();
+            var result = await _mediator.Send(new CreateVendorCommand(vendor.Name));
 
-            await _publisher.Publish(new VendorCreateEvent(Guid.NewGuid(), newVendor.Id, newVendor.Name));
-
-            return RedirectToAction("GetById", new { id = newVendor.Id });
+            return RedirectToAction("GetById", new { id = result.Id });
         }
     }
 
