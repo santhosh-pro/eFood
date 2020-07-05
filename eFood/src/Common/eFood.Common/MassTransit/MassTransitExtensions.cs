@@ -22,7 +22,7 @@ namespace eFood.Common.MassTransit
                 if (type != null)
                     x.AddConsumer(type);
 
-
+                
                 var baseUri = new Uri(config.RabbitMQAddress);
                 var hostUri = new Uri(baseUri, config.HostName);
                 x.AddBus(context => Bus.Factory.CreateUsingRabbitMq(cfg =>

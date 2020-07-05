@@ -4,6 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using eFood.Catalog.WebApi.DAL;
+using eFood.Common.InboxPattern;
+using eFood.Common.InboxPattern.EntityFramework;
 using eFood.Common.MassTransit;
 using eFood.Common.Serilog;
 using eFood.Common.Swagger;
@@ -33,6 +35,7 @@ namespace eFood.Catalog.WebApi
         {
             services.AddDbContextPool<CatalogDbContext>(opt =>
                 opt.UseSqlServer(Configuration.GetConnectionString("DbContext")));
+
             services.AddControllers();
 
             services.AddSwagger((IConfigurationRoot)Configuration, c =>

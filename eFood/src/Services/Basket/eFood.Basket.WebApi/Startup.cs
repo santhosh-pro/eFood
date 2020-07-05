@@ -6,6 +6,8 @@ using System.Reflection;
 using System.Threading.Tasks;
 using eFood.Basket.WebApi.Consumers;
 using eFood.Basket.WebApi.DAL;
+using eFood.Common.InboxPattern;
+using eFood.Common.InboxPattern.EntityFramework;
 using eFood.Common.MassTransit;
 using eFood.Common.Serilog;
 using eFood.Common.Swagger;
@@ -35,6 +37,12 @@ namespace eFood.Basket.WebApi
             services.AddDbContextPool<BasketDbContext>(opt =>
                 opt.UseSqlServer(Configuration.GetConnectionString("DbContext")));
 
+            services.AddDbContextPool<InboxDbContext>(opt =>
+                opt.UseSqlServer(Configuration.GetConnectionString("DbContext"), sqlOptions =>
+                {
+                    sqlOptions.MigrationsAssembly(typeof(Startup).GetTypeInfo().Assembly.GetName().Name);
+                }));
+
             services.AddControllers();
 
             services.AddSwagger((IConfigurationRoot)Configuration, c =>
@@ -43,6 +51,7 @@ namespace eFood.Basket.WebApi
                 c.IncludeXmlComments(filePath);
             });
             services.AddMassTransit(Configuration, typeof(CatalogConsumer), Assembly.GetExecutingAssembly().GetName().Name);
+            services.AddInbox(Configuration, x => x.AddEntityFramework<InboxDbContext>());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
