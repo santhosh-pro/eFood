@@ -2,11 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using eFood.Catalog.WebApi.DAL;
 using eFood.Common.InboxPattern;
 using eFood.Common.InboxPattern.EntityFramework;
 using eFood.Common.MassTransit;
+using eFood.Common.OutboxPattern;
+using eFood.Common.OutboxPattern.EntityFramework;
 using eFood.Common.Serilog;
 using eFood.Common.Swagger;
 using MediatR;
@@ -36,6 +39,12 @@ namespace eFood.Catalog.WebApi
             services.AddDbContextPool<CatalogDbContext>(opt =>
                 opt.UseSqlServer(Configuration.GetConnectionString("DbContext")));
 
+            services.AddDbContextPool<OutboxDbContext>(opt =>
+                opt.UseSqlServer(Configuration.GetConnectionString("DbContext"), sqlOptions =>
+                {
+                    sqlOptions.MigrationsAssembly(typeof(Startup).GetTypeInfo().Assembly.GetName().Name);
+                }));
+
             services.AddControllers();
 
             services.AddSwagger((IConfigurationRoot)Configuration, c =>
@@ -46,6 +55,8 @@ namespace eFood.Catalog.WebApi
             services.AddMediatR(typeof(Startup));
             services.AddMassTransit(Configuration, null, null);
             services.AddSingleton<IBusPublisher, MassTransitPublisher>();
+
+            services.AddOutbox(Configuration, x => x.AddEntityFramework<OutboxDbContext>());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
