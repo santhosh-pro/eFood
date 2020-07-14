@@ -17,3 +17,10 @@ services:
       - ASPNETCORE_ENVIRONMENT=docker
     ports:
       - "5001:80"
+
+  efood.basket.webapi:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=docker
+    ports:
+      - "5002:80"
+
