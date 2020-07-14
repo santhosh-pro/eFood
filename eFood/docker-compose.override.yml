@@ -1,0 +1,19 @@
+version: '3.4'
+
+services:
+  mssql:
+    ports:
+        - "1433:1433"   
+    environment:
+        ACCEPT_EULA: "Y"
+        SA_PASSWORD: "2wsx2WSX"
+        MSSQL_PID: "Developer"
+  rabbitmq:
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+  efood.catalog.webapi:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=docker
+    ports:
+      - "5001:80"

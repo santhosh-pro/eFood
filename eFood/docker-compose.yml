@@ -1,0 +1,12 @@
+version: '3.4'
+
+services:
+  mssql:
+      image: "mcr.microsoft.com/mssql/server:2019-latest"
+  rabbitmq:
+      image: "rabbitmq:3-management"
+  efood.catalog.webapi:
+    image: ${DOCKER_REGISTRY-}efoodcatalogwebapi
+    build:
+      context: .
+      dockerfile: src/Services/Catalog/eFood.Catalog.WebApi/Dockerfile
