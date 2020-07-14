@@ -7,13 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Infrastructure\OutboxMessage\Migrations\20200713193229_OutboxInitial.cs" />
-    <Compile Remove="Infrastructure\OutboxMessage\Migrations\20200713193229_OutboxInitial.Designer.cs" />
-    <Compile Remove="Infrastructure\OutboxMessage\Migrations\20200713195812_OutboxInitial.cs" />
-    <Compile Remove="Infrastructure\OutboxMessage\Migrations\20200713195812_OutboxInitial.Designer.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.5">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

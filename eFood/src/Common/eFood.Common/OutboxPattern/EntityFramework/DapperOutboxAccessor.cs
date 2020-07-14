@@ -19,12 +19,12 @@ namespace eFood.Common.OutboxPattern.EntityFramework
             return await GetEventFromQueue();
         }
 
-        public Task MarkAsProcessedAsync(OutboxMessage outboxMessage)
+        public async Task MarkAsProcessedAsync(OutboxMessage outboxMessage)
         {
             outboxMessage.State = MessageState.Published;
             using (var connection = new SqlConnection(_connectionString))
             {
-                return connection.ExecuteAsync(
+                await connection.ExecuteAsync(
                     "update OutboxMessages set State = 2, ProcessedAt = GETUTCDATE() where Id = @id",
                     new {id = outboxMessage.Id});
 
